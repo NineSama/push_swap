@@ -5,48 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/18 01:38:07 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/06/18 01:49:36 by mfroissa         ###   ########.fr       */
+/*   Created: 2022/08/29 16:47:04 by mfroissa          #+#    #+#             */
+/*   Updated: 2022/08/29 20:51:08 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*get_min(t_list *list)
+void	sa(t_list *stacka, char c)
 {
-	int		tmp;
-	t_list	*result;
+	int		i;
+	t_list	*tmp;
 
-	tmp = list->content;
-	result = list;
-	while (list)
-	{
-		if (list->content < tmp)
-		{
-			tmp = list->content;
-			result = list;
-		}
-		list = list->next;
-	}
-	return (result);
+	i = stacka->content;
+	tmp = stacka->next;
+	stacka->content = tmp->content;
+	stacka = stacka->next;
+	stacka->content = i;
+	if (c == 'a')
+		write(1, "sa\n", 3);
+	else	
+		write(1, "sb\n", 3);
+}
+/*
+void	ss(int a; int b)
+{
 }
 
-t_list	*get_max(t_list *list)
+void	pa(int a; int b)
 {
-	int		tmp;
-	t_list	*result;
-
-	tmp = list->content;
-	result = list;
-	while (list)
-	{
-		if (list->content > tmp)
-		{
-			tmp = list->content;
-			result = list;
-		}
-		list = list->next;
-	}
-	return (result);
 }
 
+void	pb(int a; int b)
+{
+}
+
+void	ra(int a; int b)
+{
+}
+
+void	rb(int a; int b)
+{
+}
+
+void	rr(int a; int b)
+{
+}
+
+void	rra(int a; int b)
+{
+}
+
+void	rrb(int a; int b)
+{
+}
+
+void	rrr(int a; int b)
+{
+}
+*/

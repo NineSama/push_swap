@@ -6,7 +6,7 @@
 /*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:33:35 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/06/30 21:57:20 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/08/29 20:51:33 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 # include <unistd.h>
 # include <string.h>
 
-typedef struct s_lists
+typedef struct s_big_list
 {
 	struct s_list	*listA;
 	struct s_list	*listB;
-}					t_lists;
+}					t_big_list;
 
 typedef struct s_list
 {
@@ -30,6 +30,15 @@ typedef struct s_list
 	struct s_list	*next;
 }								t_list;
 
-t_list	*init_list(int content);
-int		ft_atoi(char *str);
+/* operations.c */
+void	sa(t_list *stacka, char c);
+
+/* prog.c */
+int	ft_checkdup(int ac, char **av);
+int ft_atoi(char *str);
+
+/* lst.c */
+t_list	*ft_lstnew(int content);
+void	ft_lstadd_back(t_list **lst, int content);
+t_list	*ft_lstlast(t_list *lst);
 #endif
