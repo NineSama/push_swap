@@ -6,7 +6,7 @@
 /*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 04:04:08 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/08/29 20:50:44 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:05:44 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,29 @@ int	ft_atoi(char *str)
 int	main(int ac, char **av)
 {
 	int		i;
-	t_list	*stacka;
+	t_list	**stacka;
+	t_list	**stackB;
 
 	ft_checkdup(ac, av);
-	stacka = ft_lstnew(ft_atoi(av[1]));
-	i = 2;
+	stacka = malloc(sizeof(t_list));
+	stackB = malloc(sizeof(t_list));
+	*stacka = NULL;
+	*stackB = NULL;
+	i = 1;
 	while (i < ac)
 	{
-		ft_lstadd_back(&stacka, ft_atoi(av[i]));
+		ft_lstadd_back(stacka, ft_atoi(av[i]));
 		i++;
 	}
-	sa(stacka, 'b');
-	while (stacka->next)
+	swap(stacka, 'a');
+	push(stacka, stackB, 'b');
+	printf("A\n");
+	while ((*stacka)->next)
 	{
-		printf("%d\n", stacka->content);
-		stacka = stacka->next;
+		printf("%d\n", (*stacka)->content);
+		*stacka = (*stacka)->next;
 	}
-	printf("%d\n", stacka->content);
+	printf("%d\n", (*stacka)->content);
+	printf("B\n%d\n", (*stackB)->content);
 	return (0);
 }
