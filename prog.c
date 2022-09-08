@@ -6,41 +6,17 @@
 /*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 04:04:08 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/08/30 21:05:44 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:34:37 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_checkdup(int ac, char **av)
+long	ft_atoi(char *str)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < ac)
-	{
-		j = i + 1;
-		while (j < ac)
-		{
-			if (ft_atoi(av[i]) == ft_atoi(av[j]))
-			{
-				printf("Il y a un dup\n");
-				return (-1);
-			}
-			j++;
-		}
-		i++;
-	}
-	printf("Pas de dup\n");
-	return (0);
-}
-
-int	ft_atoi(char *str)
-{
-	int	i;
-	int	signe;
-	int	valeur;
+	int		i;
+	int		signe;
+	long	valeur;
 
 	i = 0;
 	signe = 0;
@@ -61,32 +37,47 @@ int	ft_atoi(char *str)
 	return (valeur);
 }
 
+void	ft_print(t_list **stack)
+{
+	t_list	*tmp;
+
+	tmp = *stack;
+	while (tmp)
+	{
+		printf("C : %d		||	I : %d\n", tmp->content, tmp->index);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	int		i;
-	t_list	**stacka;
-	t_list	**stackB;
+	t_list	**stack_a;
+	t_list	**stack_b;
 
-	ft_checkdup(ac, av);
-	stacka = malloc(sizeof(t_list));
-	stackB = malloc(sizeof(t_list));
-	*stacka = NULL;
-	*stackB = NULL;
+	if (!valid(ac, av))
+		return (write (1, "Error\n", 6), 0);
+	stack_a = malloc(sizeof(t_list));
+	stack_b = malloc(sizeof(t_list));
+	*stack_a = NULL;
+	*stack_b = NULL;
 	i = 1;
 	while (i < ac)
 	{
-		ft_lstadd_back(stacka, ft_atoi(av[i]));
+		ft_lstadd_back(stack_a, ft_atoi(av[i]));
 		i++;
 	}
-	swap(stacka, 'a');
-	push(stacka, stackB, 'b');
-	printf("A\n");
-	while ((*stacka)->next)
+	if (ac <= 3)
 	{
-		printf("%d\n", (*stacka)->content);
-		*stacka = (*stacka)->next;
+		trot(stack_a, ft_lstsize(stack_a));
+		return (0);
 	}
-	printf("%d\n", (*stacka)->content);
-	printf("B\n%d\n", (*stackB)->content);
+	algo(stack_a, stack_b, ac);
+	printf("\n A \n");
+	ft_print(stack_a);
+	printf("\n B \n");
+	ft_print(stack_b);
+	free(stack_a);
+	free(stack_b);
 	return (0);
 }
