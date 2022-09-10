@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tabsort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:36:57 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/07 20:02:56 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:32 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	*create_tab(int	*tab, t_list **stack, int nb)
 {
@@ -71,6 +71,18 @@ void	put_index(int *tab, t_list **stack, int ac)
 			tmp->index = i;
 		i++;
 	}
+}
+
+int	get_mediane_tiers(int *tab, t_list **stack, int nb)
+{
+	int		mediane;
+	t_list	*tmp;
+
+	tmp = *stack;
+	while (tmp->content != tab[(nb / 3)])
+		tmp = tmp->next;
+	mediane = tmp->index;
+	return (mediane);
 }
 
 int	get_mediane(int *tab, t_list **stack, int nb)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   algo_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:34:53 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/08 19:24:45 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:58:57 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane)
 {

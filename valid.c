@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:57:49 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/01 02:04:52 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:36 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	ft_checksort(t_list **stack)
 {

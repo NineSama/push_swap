@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prog.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 04:04:08 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/08 21:34:37 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:29 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 long	ft_atoi(char *str)
 {
@@ -73,10 +73,10 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	algo(stack_a, stack_b, ac);
-	printf("\n A \n");
-	ft_print(stack_a);
-	printf("\n B \n");
-	ft_print(stack_b);
+	// printf("\n A \n");
+	// ft_print(stack_a);
+	// printf("\n B \n");
+	// ft_print(stack_b);
 	free(stack_a);
 	free(stack_b);
 	return (0);

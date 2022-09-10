@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:42:29 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/09 00:02:45 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:15 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 {
@@ -18,8 +18,36 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 	t_list	*tmp;
 	int		quantity;
 
-	i = 0;
 	quantity = 0;
+	i = 0;
+	while (i < size)
+	{
+		tmp = *stack_a;
+		if (tmp->index < mediane)
+		{
+			push(stack_a, stack_b, 'b');
+			rotate(stack_b, 'b');
+		}
+		else if (tmp->index >= mediane && tmp->index < (mediane * 2))
+		{
+			push(stack_a, stack_b, 'b');
+			quantity++;
+		}
+		else
+			rotate(stack_a, 'a');
+		i++;
+	}
+	return (quantity);
+}
+
+int	push_chunks_no_zero(t_list **stack_a, t_list **stack_b, int size, int mediane)
+{
+	int		i;
+	t_list	*tmp;
+	int		quantity;
+
+	quantity = 0;
+	i = 0;
 	while (i < size)
 	{
 		tmp = *stack_a;
@@ -35,12 +63,33 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 	return (quantity);
 }
 
+int	push_chunks_no_op(t_list **stack_a, int size, int mediane)
+{
+	int		i;
+	t_list	*tmp;
+	int		quantity;
+
+	quantity = 0;
+	i = 0;
+	tmp = *stack_a;
+	while (i < size)
+	{
+		if (tmp->index < mediane)
+			quantity++;
+		tmp = tmp->next;
+		i++;
+	}
+	return (quantity);
+}
+
 void	algo(t_list **stack_a, t_list **stack_b, int ac)
 {
 	int		*tab;
 	int		mediane;
 	t_list	**number;
+	int		count;
 
+	count = 0;
 	number = malloc(sizeof(t_list));
 	*number = NULL;
 	while (ft_lstsize(stack_a) > 3)
@@ -50,7 +99,15 @@ void	algo(t_list **stack_a, t_list **stack_b, int ac)
 		if (ft_lstsize(stack_a) == ac - 1)
 			put_index(tab, stack_a, ft_lstsize(stack_a));
 		mediane = get_mediane(tab, stack_a, ft_lstsize(stack_a));
-		ft_lstadd_front(number, push_chunks(stack_a, stack_b, ft_lstsize(stack_a), mediane));
+		if (count == 0)
+		{
+			mediane = get_mediane_tiers(tab, stack_a, ft_lstsize(stack_a));
+			ft_lstadd_front(number, push_chunks_no_op(stack_a, ft_lstsize(stack_a), mediane));
+			ft_lstadd_front(number, push_chunks(stack_a, stack_b, ft_lstsize(stack_a), mediane));
+		}
+		if (count != 0)
+			ft_lstadd_front(number, push_chunks_no_zero(stack_a, stack_b, ft_lstsize(stack_a), mediane));
+		count++;
 		free(tab);
 	}
 	trot(stack_a, ft_lstsize(stack_a));
@@ -131,6 +188,12 @@ void	sort_three_from_b_two(t_list **stack_a, t_list **stack_b, t_list *tmp, t_li
 		push(stack_b, stack_a, 'a');
 		push(stack_b, stack_a, 'a');
 	}
+	else
+	{
+		push(stack_b, stack_a, 'a');
+		push(stack_b, stack_a, 'a');
+		push(stack_b, stack_a, 'a');
+	}
 }
 
 void	three_or_two(t_list **stack_a, t_list **stack_b, int nb)
@@ -143,41 +206,43 @@ void	three_or_two(t_list **stack_a, t_list **stack_b, int nb)
 		trot(stack_a, 2);
 	}
 	else
-	{
-//		trot(stack_a, 3);
 		sort_three_from_b(stack_a, stack_b);
-//		push(stack_b, stack_a, 'a');
-//		push(stack_b, stack_a, 'a');
-//		push(stack_b, stack_a, 'a');
-//		trot(stack_a, 3);	
-	}
 }
 
 int	from_b_to_a(t_list **stack_a, t_list **stack_b, int nb, int mediane)
 {
 	int	i;
 	int pa;
+	int	count;
 	t_list	*tmp;
+	int	rotatee;
 
 	i = 0;
 	pa = 0;
 	tmp = *stack_b;
-	while (i < nb)
+	count = 0;
+	rotatee = 0;
+	while (i < nb && count != nb / 2)
 	{
 		tmp = *stack_b;
 		if (tmp->index > mediane)
 		{
 			push(stack_b, stack_a, 'a');
 			pa++;
+			count++;
 		}
 		else
+		{
 			rotate(stack_b, 'b');
+			rotatee++;
+		}
 		i++;
 	}
-	while (nb > pa)
+	i = 0;
+	while (i < rotatee)
 	{
 		rev_rotate(stack_b, 'b');
-		nb--;
+		i++;
 	}
 	return (pa);
 }
@@ -209,7 +274,11 @@ void	truc(t_list **stack_a, t_list **stack_b, int nb)
 	int		i;
 	int		mediane;
 	int		pb;
+	int		count;
+	int		rotatee;
 
+	count = 0;
+	rotatee = 0;
 	if (nb <= 3)
 		trot(stack_a, nb);
 	else
@@ -219,20 +288,24 @@ void	truc(t_list **stack_a, t_list **stack_b, int nb)
 		mediane = get_mediane(tab, stack_a, nb);
 		i = 0;
 		pb = 0;
-		while (i < nb)
+		while (i < nb && count != nb / 2 + 1)
 		{
 			tmp = *stack_a;
 			if (tmp->index <= mediane)
 			{
 				push(stack_a, stack_b, 'b');
 				pb++;
+				count++;
 			}
 			else
+			{
 				rotate(stack_a, 'a');
+				rotatee++;
+			}
 			i++;
 		}
 		i = 0;
-		while (i < nb - pb)
+		while (i < rotatee)
 		{
 			rev_rotate(stack_a, 'a');
 			i++;
@@ -288,9 +361,7 @@ void	troi_2(t_list **stack_a, t_list *tmp, t_list *next)
 {
 	if (tmp->content > next->content && next->content < next->next->content
 		&& tmp->content < next->next->content)
-	{
 		swap(stack_a, 'a');
-	}
 	else if (tmp->content < next->content && next->content > next->next->content
 		&& tmp->content < next->next->content)
 	{

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 16:47:04 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/06 17:11:36 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:23 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	swap(t_list **stack, char c)
 {
@@ -63,6 +63,8 @@ void	rotate(t_list **stack, char c)
 	t_list	*tmp;
 	t_list	*tmp_last;
 
+	if (!(*stack)->next)
+		return ;
 	tmp = *stack;
 	*stack = tmp->next;
 	tmp_last = ft_lstlast(tmp);
@@ -104,6 +106,8 @@ void	rev_rotate(t_list **stack, char c)
 
 	tmp = *stack;
 	tmp_last = ft_lstlast(tmp);
+	if (!(*stack)->next)
+		return ;
 	*stack = del_last(stack, tmp_last->content, 'c');
 	*stack = del_last(stack, tmp_last->index, 'i');
 	(*stack)->next = NULL;

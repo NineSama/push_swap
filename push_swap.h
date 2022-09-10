@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:33:35 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/08 21:19:02 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:29:27 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		ft_lstsize(t_list **stack);
 int		*create_tab(int *tab, t_list **stack, int nb);
 void	ft_sort_tab(int	*tab, int size);
 void	put_index(int *tab, t_list **stack, int ac);
+int		get_mediane_tiers(int *tab, t_list **stack, int nb);
 int		get_mediane(int	*tab, t_list **stack, int nb);
 
 /* algo_utils.c */
@@ -67,6 +68,8 @@ void	tri_last_chunk(t_list **stack_a, t_list **stack_b, int nb);
 
 /* algo.c */
 int		push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane);
+int		push_chunks_no_op(t_list **stack_a, int size, int mediane);
+int		push_chunks_no_zero(t_list **stack_a, t_list **stack_b, int size, int mediane);
 void	algo(t_list **stack_a, t_list **stack_b, int size);
 void	send_back(t_list **stack_a, t_list **stack_b, t_list **number);
 void	sort_three_from_b(t_list **stack_a, t_list **stack_b);

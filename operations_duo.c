@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   operations_duo.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfroissa <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 18:12:38 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/08/31 18:38:29 by mfroissa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:59:18 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void	swap_duo(t_list **stack_a, t_list **stack_b)
 {
