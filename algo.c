@@ -6,7 +6,7 @@
 /*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:42:29 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/09 21:59:15 by msharifi         ###   ########.fr       */
+/*   Updated: 2022/09/10 22:25:43 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 {
 	int		i;
 	t_list	*tmp;
+	t_list	*tmp2;
 	int		quantity;
 
 	quantity = 0;
@@ -23,10 +24,17 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 	while (i < size)
 	{
 		tmp = *stack_a;
+		tmp2 = (*stack_a)->next;
 		if (tmp->index < mediane)
 		{
 			push(stack_a, stack_b, 'b');
-			rotate(stack_b, 'b');
+			if (tmp2->index > mediane && tmp2->index > (mediane * 2))
+			{
+				rotate_duo(stack_a, stack_b);
+				size--;
+			}
+			else
+				rotate(stack_b, 'b');
 		}
 		else if (tmp->index >= mediane && tmp->index < (mediane * 2))
 		{
@@ -99,7 +107,7 @@ void	algo(t_list **stack_a, t_list **stack_b, int ac)
 		if (ft_lstsize(stack_a) == ac - 1)
 			put_index(tab, stack_a, ft_lstsize(stack_a));
 		mediane = get_mediane(tab, stack_a, ft_lstsize(stack_a));
-		if (count == 0)
+		if (count == 0 && ac != 6)
 		{
 			mediane = get_mediane_tiers(tab, stack_a, ft_lstsize(stack_a));
 			ft_lstadd_front(number, push_chunks_no_op(stack_a, ft_lstsize(stack_a), mediane));
@@ -110,7 +118,9 @@ void	algo(t_list **stack_a, t_list **stack_b, int ac)
 		count++;
 		free(tab);
 	}
-	trot(stack_a, ft_lstsize(stack_a));
+	if (ft_lstsize(stack_a) == 2)
+		three_or_two(stack_a, stack_b, 2);
+	only_three(stack_a);
 	send_back(stack_a, stack_b, number);
 }
 
@@ -377,4 +387,34 @@ void	troi_2(t_list **stack_a, t_list *tmp, t_list *next)
 		rev_rotate(stack_a, 'a');
 		swap(stack_a, 'a');
 	}
+}
+
+void	only_three(t_list **stack_a)
+{
+	t_list	*tmp;
+	t_list	*next;
+
+	tmp = *stack_a;
+	next = tmp->next;
+
+	if (tmp->content > next->content && next->content > next->next->content)
+	{
+		swap(stack_a, 'a');
+		rev_rotate(stack_a, 'a');
+	}
+	else if (tmp->content > next->content && next->content < next->next->content
+		&& tmp->content > next->next->content)
+		rotate(stack_a, 'a');
+	else if (tmp->content > next->content && next->content < next->next->content
+		&& tmp->content < next->next->content)
+		swap(stack_a, 'a');
+	else if (tmp->content < next->content && next->content > next->next->content
+		&& tmp->content < next->next->content)
+	{
+		swap(stack_a, 'a');
+		rotate(stack_a, 'a');
+	}
+	else if (tmp->content < next->content
+		&& next->content > next->next->content)
+		rev_rotate(stack_a, 'a');
 }

@@ -6,7 +6,7 @@
 /*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 01:33:35 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/09 17:29:27 by msharifi         ###   ########.fr       */
+/*   Updated: 2022/09/10 19:05:03 by msharifi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	three_or_two(t_list **stack_a, t_list **stack_b, int nb);
 int		from_b_to_a(t_list **stack_a, t_list **stack_b, int nb, int mediane);
 void	tri(t_list **stack_a, t_list **stack_b, int nb);
 void	truc(t_list **stack_a, t_list **stack_b, int nb);
+void	five(t_list **stack_a, t_list **stack_b);
 void	trot(t_list **stack_a, int nb);
 void	troi(t_list **stack_a);
 void	troi_2(t_list **stack_a, t_list *tmp, t_list *next);
+void	only_three(t_list **stack_a);
+
 #endif
