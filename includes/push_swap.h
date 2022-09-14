@@ -66,6 +66,7 @@ int		get_mediane(int	*tab, t_list **stack, int nb);
 int		from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane);
 void	tri_last_chunk(t_list **stack_a, t_list **stack_b, int nb);
 
+void	ft_free_list(t_list **stack);
 /* algo.c */
 int		push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane);
 int		push_chunks_no_op(t_list **stack_a, int size, int mediane);

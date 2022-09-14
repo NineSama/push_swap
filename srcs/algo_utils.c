@@ -6,7 +6,7 @@
 /*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 18:34:53 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/09 21:58:57 by msharifi         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:35:57 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane)
 {
-	int	i;
-	int pa;
+	int		i;
+	int		pa;
 	t_list	*tmp;
 
 	i = 0;

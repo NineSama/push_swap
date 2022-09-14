@@ -6,7 +6,7 @@
 /*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 04:04:08 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/09 21:59:29 by msharifi         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:40:03 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ void	ft_print(t_list **stack)
 	}
 }
 
+void	ft_free_list(t_list **stack)
+{
+	t_list	*tmp;
+
+	if (!stack)
+		return ;
+	while (*stack)
+	{
+		tmp = *stack;
+		*stack = (*stack)->next;
+		free(tmp);
+	}
+	free(stack);
+}
+
 int	main(int ac, char **av)
 {
 	int		i;
@@ -73,11 +88,11 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	algo(stack_a, stack_b, ac);
-	// printf("\n A \n");
-	// ft_print(stack_a);
-	// printf("\n B \n");
-	// ft_print(stack_b);
-	free(stack_a);
-	free(stack_b);
+//	printf("\n A \n");
+//	ft_print(stack_a);
+//	printf("\n B \n");
+//	ft_print(stack_b);
+	ft_free_list(stack_a);
+	ft_free_list(stack_b);
 	return (0);
 }

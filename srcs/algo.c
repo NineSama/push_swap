@@ -6,7 +6,7 @@
 /*   By: msharifi <msharifi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 16:42:29 by mfroissa          #+#    #+#             */
-/*   Updated: 2022/09/10 22:25:43 by msharifi         ###   ########.fr       */
+/*   Updated: 2022/09/14 19:34:56 by mfroissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,11 @@ void	algo(t_list **stack_a, t_list **stack_b, int ac)
 		free(tab);
 	}
 	if (ft_lstsize(stack_a) == 2)
-		three_or_two(stack_a, stack_b, 2);
-	only_three(stack_a);
+		trot(stack_a, 2);
+	else if (ft_lstsize(stack_a) == 3)
+		only_three(stack_a);
 	send_back(stack_a, stack_b, number);
+	ft_free_list(number);
 }
 
 void	send_back(t_list **stack_a, t_list **stack_b, t_list **number)
@@ -129,17 +131,17 @@ void	send_back(t_list **stack_a, t_list **stack_b, t_list **number)
 	t_list	*tmp;
 
 	tmp = *number;
-	while (tmp)
+	while (tmp && *stack_b)
 	{
 		if (!tmp->next)
 		{
-			tri_last_chunk(stack_a, stack_b, tmp->content);
+			if (*stack_b)
+				tri_last_chunk(stack_a, stack_b, tmp->content);
 			return ;
 		}
 		tri(stack_a, stack_b, tmp->content);
 		tmp = tmp->next;
 	}
-	free(number);
 }
 
 void	sort_three_from_b(t_list **stack_a, t_list **stack_b)
@@ -208,7 +210,9 @@ void	sort_three_from_b_two(t_list **stack_a, t_list **stack_b, t_list *tmp, t_li
 
 void	three_or_two(t_list **stack_a, t_list **stack_b, int nb)
 {
-	if (nb == 2)
+	if (nb == 1)
+		push(stack_b, stack_a, 'a');
+	else if (nb == 2)
 	{
 		trot(stack_a, 2);
 		push(stack_b, stack_a, 'a');
@@ -331,6 +335,8 @@ void	trot(t_list **stack_a, int nb)
 	t_list	*tmp;
 
 	tmp = *stack_a;
+	if (nb == 1)
+		return ;
 	if (nb == 2)
 	{
 		if (tmp->content > tmp->next->content)
