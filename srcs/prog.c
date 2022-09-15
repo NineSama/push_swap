@@ -63,31 +63,3 @@ void	ft_free_list(t_list **stack)
 	}
 	free(stack);
 }
-
-int	main(int ac, char **av)
-{
-	int		i;
-	t_list	**stack_a;
-	t_list	**stack_b;
-
-	if (!valid(ac, av))
-		return (write (1, "Error\n", 6), 0);
-	stack_a = malloc(sizeof(t_list));
-	stack_b = malloc(sizeof(t_list));
-	*stack_a = NULL;
-	*stack_b = NULL;
-	i = 1;
-	while (i < ac)
-	{
-		ft_lstadd_back(stack_a, ft_atoi(av[i]));
-		i++;
-	}
-	algo(stack_a, stack_b, ac);
-	printf("\nA\n");
-	ft_print(stack_a);
-	printf("\nB\n");
-	ft_print(stack_b);
-	ft_free_list(stack_a);
-	ft_free_list(stack_b);
-	return (0);
-}
