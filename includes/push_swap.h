@@ -51,7 +51,7 @@ void	ft_print(t_list **stack);
 /* lst.c */
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_back(t_list **lst, int content);
-void	ft_lstadd_front(t_list **lst, int content);
+void	ft_la_f(t_list **lst, int content);
 t_list	*ft_lstlast(t_list *stack);
 int		ft_lstsize(t_list **stack);
 
@@ -67,14 +67,18 @@ int		from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane);
 void	tri_last_chunk(t_list **stack_a, t_list **stack_b, int nb);
 
 void	ft_free_list(t_list **stack);
+
 /* algo.c */
-int		push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane);
-int		push_chunks_no_op(t_list **stack_a, int size, int mediane);
-int		push_chunks_no_zero(t_list **stack_a, t_list **stack_b, int size, int mediane);
+void	ps_util(t_list **sa, t_list **sb, int med, int size);
+int		ps(t_list **stack_a, t_list **stack_b, int size, int mediane);
+int		ps_no(t_list **stack_a, int size, int mediane);
+int		pc_0(t_list **stack_a, t_list **stack_b, int size, int mediane);
+void	algo_count_0(t_list **sa, t_list **sb, int	ac, t_list **number);
+void	algo_count(t_list **sa, t_list **sb, t_list **number);
 void	algo(t_list **stack_a, t_list **stack_b, int size);
 void	send_back(t_list **stack_a, t_list **stack_b, t_list **number);
 void	sort_three_from_b(t_list **stack_a, t_list **stack_b);
-void	sort_three_from_b_two(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next);
+void	s_3fb2(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next);
 void	three_or_two(t_list **stack_a, t_list **stack_b, int nb);
 int		from_b_to_a(t_list **stack_a, t_list **stack_b, int nb, int mediane);
 void	tri(t_list **stack_a, t_list **stack_b, int nb);

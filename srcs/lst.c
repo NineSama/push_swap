@@ -43,7 +43,7 @@ void	ft_lstadd_back(t_list **lst, int content)
 	tmp->next = new;
 }
 
-void	ft_lstadd_front(t_list **lst, int content)
+void	ft_la_f(t_list **lst, int content)
 {
 	t_list	*new;
 

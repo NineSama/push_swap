@@ -12,11 +12,25 @@
 
 #include "../includes/push_swap.h"
 
-int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
+void	ps_util(t_list **sa, t_list **sb, int med, int size)
+{
+	t_list	*tmp2;
+
+	tmp2 = (*sa)->next;
+	push(sa, sb, 'b');
+	if (tmp2->index > med && tmp2->index > (med * 2))
+	{
+		rotate_duo(sa, sb);
+		size--;
+	}
+	else
+		rotate(sb, 'b');
+}
+
+int	ps(t_list **stack_a, t_list **stack_b, int size, int mediane)
 {
 	int		i;
 	t_list	*tmp;
-	t_list	*tmp2;
 	int		quantity;
 
 	quantity = 0;
@@ -24,18 +38,8 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 	while (i < size)
 	{
 		tmp = *stack_a;
-		tmp2 = (*stack_a)->next;
 		if (tmp->index < mediane)
-		{
-			push(stack_a, stack_b, 'b');
-			if (tmp2->index > mediane && tmp2->index > (mediane * 2))
-			{
-				rotate_duo(stack_a, stack_b);
-				size--;
-			}
-			else
-				rotate(stack_b, 'b');
-		}
+			ps_util(stack_a, stack_b, mediane, size);
 		else if (tmp->index >= mediane && tmp->index < (mediane * 2))
 		{
 			push(stack_a, stack_b, 'b');
@@ -48,7 +52,7 @@ int	push_chunks(t_list **stack_a, t_list **stack_b, int size, int mediane)
 	return (quantity);
 }
 
-int	push_chunks_no_zero(t_list **stack_a, t_list **stack_b, int size, int mediane)
+int	pc_0(t_list **stack_a, t_list **stack_b, int size, int mediane)
 {
 	int		i;
 	t_list	*tmp;
@@ -71,7 +75,7 @@ int	push_chunks_no_zero(t_list **stack_a, t_list **stack_b, int size, int median
 	return (quantity);
 }
 
-int	push_chunks_no_op(t_list **stack_a, int size, int mediane)
+int	ps_no(t_list **stack_a, int size, int mediane)
 {
 	int		i;
 	t_list	*tmp;
@@ -90,10 +94,39 @@ int	push_chunks_no_op(t_list **stack_a, int size, int mediane)
 	return (quantity);
 }
 
+void	algo_count_0(t_list **sa, t_list **sb, int	ac, t_list **number)
+{
+	int	*tab;
+	int	m;
+
+	tab = NULL;
+	tab = create_tab(tab, sa, ft_lstsize(sa));
+	if (ft_lstsize(sa) == ac - 1)
+		put_index(tab, sa, ft_lstsize(sa));
+	m = get_mediane(tab, sa, ft_lstsize(sa));
+	if (ac != 6)
+	{
+		m = get_mediane_tiers(tab, sa, ft_lstsize(sa));
+		ft_la_f(number, ps_no(sa, ft_lstsize(sa), m));
+		ft_la_f(number, ps(sa, sb, ft_lstsize(sa), m));
+	}
+	free(tab);
+}
+
+void	algo_count(t_list **sa, t_list **sb, t_list **number)
+{
+	int	*tab;
+	int	m;
+
+	tab = NULL;
+	tab = create_tab(tab, sa, ft_lstsize(sa));
+	m = get_mediane(tab, sa, ft_lstsize(sa));
+	ft_la_f(number, pc_0(sa, sb, ft_lstsize(sa), m));
+	free(tab);
+}
+
 void	algo(t_list **stack_a, t_list **stack_b, int ac)
 {
-	int		*tab;
-	int		mediane;
 	t_list	**number;
 	int		count;
 
@@ -102,21 +135,11 @@ void	algo(t_list **stack_a, t_list **stack_b, int ac)
 	*number = NULL;
 	while (ft_lstsize(stack_a) > 3)
 	{
-		tab = NULL;
-		tab = create_tab(tab, stack_a, ft_lstsize(stack_a));
-		if (ft_lstsize(stack_a) == ac - 1)
-			put_index(tab, stack_a, ft_lstsize(stack_a));
-		mediane = get_mediane(tab, stack_a, ft_lstsize(stack_a));
-		if (count == 0 && ac != 6)
-		{
-			mediane = get_mediane_tiers(tab, stack_a, ft_lstsize(stack_a));
-			ft_lstadd_front(number, push_chunks_no_op(stack_a, ft_lstsize(stack_a), mediane));
-			ft_lstadd_front(number, push_chunks(stack_a, stack_b, ft_lstsize(stack_a), mediane));
-		}
+		if (count == 0)
+			algo_count_0(stack_a, stack_b, ac, number);
 		if (count != 0)
-			ft_lstadd_front(number, push_chunks_no_zero(stack_a, stack_b, ft_lstsize(stack_a), mediane));
+			algo_count(stack_a, stack_b, number);
 		count++;
-		free(tab);
 	}
 	if (ft_lstsize(stack_a) == 2)
 		trot(stack_a, 2);
@@ -169,10 +192,10 @@ void	sort_three_from_b(t_list **stack_a, t_list **stack_b)
 		push(stack_b, stack_a, 'a');
 	}
 	else
-		sort_three_from_b_two(stack_a, stack_b, tmp, next);
+		s_3fb2(stack_a, stack_b, tmp, next);
 }
 
-void	sort_three_from_b_two(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next)
+void	s_3fb2(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next)
 {
 	if (tmp->content > next->content && next->content < next->next->content
 		&& tmp->content < next->next->content)
@@ -225,11 +248,11 @@ void	three_or_two(t_list **stack_a, t_list **stack_b, int nb)
 
 int	from_b_to_a(t_list **stack_a, t_list **stack_b, int nb, int mediane)
 {
-	int	i;
-	int pa;
-	int	count;
+	int		i;
+	int		pa;
+	int		count;
 	t_list	*tmp;
-	int	rotatee;
+	int		rotatee;
 
 	i = 0;
 	pa = 0;
@@ -286,12 +309,10 @@ void	truc(t_list **stack_a, t_list **stack_b, int nb)
 	t_list	*tmp;
 	int		*tab;
 	int		i;
-	int		mediane;
 	int		pb;
-	int		count;
 	int		rotatee;
+	int		med;
 
-	count = 0;
 	rotatee = 0;
 	if (nb <= 3)
 		trot(stack_a, nb);
@@ -299,17 +320,16 @@ void	truc(t_list **stack_a, t_list **stack_b, int nb)
 	{
 		tab = NULL;
 		tab = create_tab(tab, stack_a, nb);
-		mediane = get_mediane(tab, stack_a, nb);
+		med = get_mediane(tab, stack_a, nb);
 		i = 0;
 		pb = 0;
-		while (i < nb && count != nb / 2 + 1)
+		while (i < nb && pb != nb / 2 + 1)
 		{
 			tmp = *stack_a;
-			if (tmp->index <= mediane)
+			if (tmp->index <= med)
 			{
 				push(stack_a, stack_b, 'b');
 				pb++;
-				count++;
 			}
 			else
 			{
@@ -402,7 +422,6 @@ void	only_three(t_list **stack_a)
 
 	tmp = *stack_a;
 	next = tmp->next;
-
 	if (tmp->content > next->content && next->content > next->next->content)
 	{
 		swap(stack_a, 'a');
