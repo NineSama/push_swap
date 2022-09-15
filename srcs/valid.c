@@ -40,10 +40,7 @@ int	ft_checkdup(int ac, char **av)
 		while (j < ac)
 		{
 			if (ft_atoi(av[i]) == ft_atoi(av[j]))
-			{
-				printf("checkdup");
 				return (0);
-			}
 			j++;
 		}
 		i++;
@@ -65,10 +62,7 @@ int	ft_checknum(int ac, char **av)
 			if (j == 0 && (av[i][j] == '-' || av[i][j] == '+'))
 				j++;
 			if (av[i][j] < '0' || av[i][j] > '9')
-			{
-				printf("checknum");
 				return (0);
-			}
 			j++;
 		}
 		i++;
@@ -84,10 +78,7 @@ int	ft_checkint(int ac, char **av)
 	while (i < ac)
 	{
 		if (ft_atoi(av[i]) < -2147483648 || ft_atoi(av[i]) > 2147483647)
-		{
-			printf("checkint");
 			return (0);
-		}
 		i++;
 	}
 	return (1);

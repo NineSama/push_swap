@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-int	from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane)
+int	b_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane)
 {
 	int		i;
 	int		pa;
@@ -50,7 +50,7 @@ void	tri_last_chunk(t_list **stack_a, t_list **stack_b, int nb)
 	tab = NULL;
 	tab = create_tab(tab, stack_b, nb);
 	mediane = get_mediane(tab, stack_b, nb);
-	pa = from_b_to_a_last(stack_a, stack_b, nb, mediane);
+	pa = b_a_last(stack_a, stack_b, nb, mediane);
 	truc(stack_a, stack_b, pa);
 	tri_last_chunk(stack_a, stack_b, nb - pa);
 	free(tab);

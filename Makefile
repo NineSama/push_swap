@@ -9,6 +9,11 @@ SRCS		=	${SRCS_DIR}algo_utils.c \
 				${SRCS_DIR}operations.c \
 				${SRCS_DIR}prog.c \
 				${SRCS_DIR}tabsort.c \
+				${SRCS_DIR}send_back.c \
+				${SRCS_DIR}push_chunks.c \
+				${SRCS_DIR}sort_three_from_b.c \
+				${SRCS_DIR}b_to_a.c \
+				${SRCS_DIR}sort.c \
 				${SRCS_DIR}valid.c
 
 _DEPS		= push_swap.h

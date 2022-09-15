@@ -46,6 +46,7 @@ int		valid(int ac, char **av);
 
 /* prog.c */
 long	ft_atoi(char *str);
+void	ft_free_list(t_list **stack);
 void	ft_print(t_list **stack);
 
 /* lst.c */
@@ -63,27 +64,37 @@ int		get_mediane_tiers(int *tab, t_list **stack, int nb);
 int		get_mediane(int	*tab, t_list **stack, int nb);
 
 /* algo_utils.c */
-int		from_b_to_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane);
+int		b_a_last(t_list **stack_a, t_list **stack_b, int nb, int mediane);
 void	tri_last_chunk(t_list **stack_a, t_list **stack_b, int nb);
 
-void	ft_free_list(t_list **stack);
-
 /* algo.c */
+void	algo_count_0(t_list **sa, t_list **sb, int ac, t_list **number);
+void	algo_count(t_list **sa, t_list **sb, t_list **number);
+void	algo(t_list **stack_a, t_list **stack_b, int size);
+
+/* send_back.c */
+t_list	*truc_util(t_list **stack_a, t_list **stack_b, int nb);
+void	truc(t_list **stack_a, t_list **stack_b, int nb);
+void	tri(t_list **stack_a, t_list **stack_b, int nb);
+void	send_back(t_list **stack_a, t_list **stack_b, t_list **number);
+
+/* push_chunks.c */
 void	ps_util(t_list **sa, t_list **sb, int med, int size);
 int		ps(t_list **stack_a, t_list **stack_b, int size, int mediane);
 int		ps_no(t_list **stack_a, int size, int mediane);
-int		pc_0(t_list **stack_a, t_list **stack_b, int size, int mediane);
-void	algo_count_0(t_list **sa, t_list **sb, int	ac, t_list **number);
-void	algo_count(t_list **sa, t_list **sb, t_list **number);
-void	algo(t_list **stack_a, t_list **stack_b, int size);
-void	send_back(t_list **stack_a, t_list **stack_b, t_list **number);
-void	sort_three_from_b(t_list **stack_a, t_list **stack_b);
+int		ps_0(t_list **stack_a, t_list **stack_b, int size, int mediane);
+
+/* sort_three_from_b.c */
+void	s_3fb3(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next);
 void	s_3fb2(t_list **stack_a, t_list **stack_b, t_list *tmp, t_list *next);
+void	sort_three_from_b(t_list **stack_a, t_list **stack_b);
+
+/* b_to_a.c */
 void	three_or_two(t_list **stack_a, t_list **stack_b, int nb);
+void	rev_b_to_a(t_list **stack, int rotatee, char c);
 int		from_b_to_a(t_list **stack_a, t_list **stack_b, int nb, int mediane);
-void	tri(t_list **stack_a, t_list **stack_b, int nb);
-void	truc(t_list **stack_a, t_list **stack_b, int nb);
-void	five(t_list **stack_a, t_list **stack_b);
+
+/* sort.c */
 void	trot(t_list **stack_a, int nb);
 void	troi(t_list **stack_a);
 void	troi_2(t_list **stack_a, t_list *tmp, t_list *next);

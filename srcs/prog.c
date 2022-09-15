@@ -82,16 +82,11 @@ int	main(int ac, char **av)
 		ft_lstadd_back(stack_a, ft_atoi(av[i]));
 		i++;
 	}
-	if (ac <= 3)
-	{
-		trot(stack_a, ft_lstsize(stack_a));
-		return (0);
-	}
 	algo(stack_a, stack_b, ac);
-//	printf("\n A \n");
-//	ft_print(stack_a);
-//	printf("\n B \n");
-//	ft_print(stack_b);
+	printf("\nA\n");
+	ft_print(stack_a);
+	printf("\nB\n");
+	ft_print(stack_b);
 	ft_free_list(stack_a);
 	ft_free_list(stack_b);
 	return (0);
